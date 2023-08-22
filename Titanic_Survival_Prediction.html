@@ -36,6 +36,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .m { color: var(--jp-mirror-editor-number-color) } /* Literal.Number */
 .highlight .s { color: var(--jp-mirror-editor-string-color) } /* Literal.String */
 .highlight .ow { color: var(--jp-mirror-editor-operator-color); font-weight: bold } /* Operator.Word */
+.highlight .pm { color: var(--jp-mirror-editor-punctuation-color) } /* Punctuation.Marker */
 .highlight .w { color: var(--jp-mirror-editor-variable-color) } /* Text.Whitespace */
 .highlight .mb { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Bin */
 .highlight .mf { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Float */
@@ -14589,24 +14590,23 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <li>对Embark数据用one-hot-encoding技术分为3列特征（0/1）</li>
 <li>Sex数据替换成0/1</li>
 <li>删除Name与Cabin（缺失值过多）特征，这里其实可以转化为tokens的形式来进行数据集的组建，考虑到数据集行数过少（过拟合风险），故删除</li>
-<li>Age数据缺失项过多，将age转为目标变量，用神经网络构建模型进行age的预测，拟合R^2约为<code>35%</code> <ul>
-<li>特征工程：</li>
-</ul>
+<li>Age数据缺失项过多，将age转为目标变量，用神经网络构建模型进行age的预测，拟合R^2约为<code>35%</code> </li>
+</ol>
 </li>
+<li>特征工程：<ol>
 <li>用随机森林模型对特征重要性进行排序，age的神经网络模型采用同样的办法，并删去后四位特征，在数据集过少的情况下减少过拟合</li>
 <li>对几个特征进行Z-Score归一化操作，便于模型能够快速收敛</li>
-<li>由于第一个采用了逻辑回归模型算法，所以对数据集进行了多项式拓展<ul>
-<li>模型选择与调优：</li>
-</ul>
+<li>由于第一个采用了逻辑回归模型算法，所以对数据集进行了多项式拓展</li>
+</ol>
 </li>
+<li>模型选择与调优：<ol>
 <li>这里选用了逻辑回归和随机森林模型</li>
 <li>分出交叉验证数据集，对逻辑回归的多项式级数与正则化（L2）系数进行多模型拟合调优选择，确定级数为3，正则化系数0.05</li>
 <li>随机森林模型进行多模型参数调优，最终选择最大深度: 10, 特征数量选择方法: 'sqrt', 树数量: 200</li>
-<li>随机森林过拟合现象非常明显，主要还是数据量过少。最终验证的准确率两个模型基本相同<ul>
-<li>备注说明：</li>
-</ul>
+<li>随机森林过拟合现象非常明显，主要还是数据量过少。最终验证的准确率两个模型基本相同</li>
+</ol>
 </li>
-<li>后续通过更改交叉验证数据集的random seed，能够一定程度上提升预测准确率，但是提高非常有限，主要是800+的数据量对于深度挖掘能力有限</li>
+<li>备注说明：<ol>
 <li>代码未经最终整理与优化</li>
 </ol>
 </li>
@@ -14651,7 +14651,6 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </ol>
 </li>
 <li>Notes:<ol>
-<li>By changing the random seed of the dataset seperation method, the prediction accuracy can be slightly improved. However, the improvement is limited for there are only about 800 passenger records.</li>
 <li>The code has not been finalized and optimized.</li>
 </ol>
 </li>
